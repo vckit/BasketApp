@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView cartRecyclerView;
-    private ArrayList<CartItem> cartItems;
+    private ArrayList<Product.CartItem> cartItems;
     private CartManager cartManager;
 
     @Override

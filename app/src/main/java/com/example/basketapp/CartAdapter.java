@@ -15,10 +15,12 @@ import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
-    private ArrayList<CartItem> cartItems;
+    // Объявили массив объектов CarItem
+    private ArrayList<Product.CartItem> cartItems;
     private Context context;
 
-    public CartAdapter(ArrayList<CartItem> cartItems, Context context) {
+    // Конструктор, который принимает набор объектов CarItem
+    public CartAdapter(ArrayList<Product.CartItem> cartItems, Context context) {
         this.cartItems = cartItems;
         this.context = context;
     }
@@ -30,9 +32,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    // Инициализация данных в представлении View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CartItem cartItem = cartItems.get(position);
+        Product.CartItem cartItem = cartItems.get(position);
         Product product = cartItem.getProduct();
         holder.productImage.setImageResource(product.getImageResource());
         holder.productName.setText(product.getName());
@@ -42,12 +45,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.increaseQuantityButton.setOnClickListener(v -> {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
             holder.productQuantity.setText(String.valueOf(cartItem.getQuantity()));
+            holder.productPrice.setText(String.format("Цена: %s", product.getPrice() * cartItem.getQuantity()));
         });
 
         holder.decreaseQuantityButton.setOnClickListener(v -> {
             if (cartItem.getQuantity() > 1) {
                 cartItem.setQuantity(cartItem.getQuantity() - 1);
                 holder.productQuantity.setText(String.valueOf(cartItem.getQuantity()));
+                holder.productPrice.setText(String.format("Цена: %s", product.getPrice()));
             }
         });
 
